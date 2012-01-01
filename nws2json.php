@@ -45,20 +45,20 @@ class nws2json {
 		$this->finish();
 	}
 	public function finish() {
-		$this->json = json_encode($this->json);
+		$this->json = json_encode($this->output);
 	}
 	public function get_current() {
 		$co = '//data[@type="current observations"]';
-		$this->json["current"]["temp"] = $this->obs->xpath->query($co.'/parameters/temperature[@type="apparent"]/value')->item(0)->nodeValue;
-		$this->json["current"]["dewpoint"] = $this->obs->xpath->query($co.'/parameters/temperature[@type="dew point"]/value')->item(0)->nodeValue;
-		$this->json["current"]["humidity"] = $this->obs->xpath->query($co.'/parameters/humidity/value')->item(0)->nodeValue;
-		$this->json["current"]["weathersummary"] = $this->obs->xpath->query($co.'/parameters/weather/weather-conditions')->item(0)->getAttribute('weather-summary');
-		$this->json["current"]["icon"] = $this->obs->xpath->query($co.'/parameters/conditions-icon/icon-link')->item(0)->nodeValue;
-		$this->json["current"]["winddirection"] = $this->obs->xpath->query($co.'/parameters/direction[@type="wind"]/value')->item(0)->nodeValue;
-		$this->json["current"]["windgust"] = $this->obs->xpath->query($co.'/parameters/wind-speed[@type="gust"]/value')->item(0)->nodeValue;
-		$this->json["current"]["windsustained"] = $this->obs->xpath->query($co.'/parameters/wind-speed[@type="sustained"]/value')->item(0)->nodeValue;
-		$this->json["current"]["barometer"] = $this->obs->xpath->query($co.'/parameters/pressure[@type="barometer"]/value')->item(0)->nodeValue;
-		$this->json["current"]["time"] = $this->obs->xpath->query($co.'/time-layout/start-valid-time')->item(0)->nodeValue;
+		$this->output["current"]["temp"] = $this->obs->xpath->query($co.'/parameters/temperature[@type="apparent"]/value')->item(0)->nodeValue;
+		$this->output["current"]["dewpoint"] = $this->obs->xpath->query($co.'/parameters/temperature[@type="dew point"]/value')->item(0)->nodeValue;
+		$this->output["current"]["humidity"] = $this->obs->xpath->query($co.'/parameters/humidity/value')->item(0)->nodeValue;
+		$this->output["current"]["weathersummary"] = $this->obs->xpath->query($co.'/parameters/weather/weather-conditions')->item(0)->getAttribute('weather-summary');
+		$this->output["current"]["icon"] = $this->obs->xpath->query($co.'/parameters/conditions-icon/icon-link')->item(0)->nodeValue;
+		$this->output["current"]["winddirection"] = $this->obs->xpath->query($co.'/parameters/direction[@type="wind"]/value')->item(0)->nodeValue;
+		$this->output["current"]["windgust"] = $this->obs->xpath->query($co.'/parameters/wind-speed[@type="gust"]/value')->item(0)->nodeValue;
+		$this->output["current"]["windsustained"] = $this->obs->xpath->query($co.'/parameters/wind-speed[@type="sustained"]/value')->item(0)->nodeValue;
+		$this->output["current"]["barometer"] = $this->obs->xpath->query($co.'/parameters/pressure[@type="barometer"]/value')->item(0)->nodeValue;
+		$this->output["current"]["time"] = $this->obs->xpath->query($co.'/time-layout/start-valid-time')->item(0)->nodeValue;
 	}
 	public function get_forecast() {
 		//nightly minimum
@@ -77,7 +77,7 @@ class nws2json {
 	private function forecast_days($xpath,$name,$callback) {
 		$array = $this->obs->xpath->query('//data[@type="forecast"]/parameters/'.$xpath);
 		foreach($array as $key => $node) {
-			$this->json["forecast"][$this->time_key($node,$key)][$name] = $callback($node);
+			$this->output["forecast"][$this->time_key($node,$key)][$name] = $callback($node);
 		}
 	}
 	private function time_key($node,$num) {
@@ -91,7 +91,7 @@ class nws2json {
 			$layout_key = $layout->getElementsByTagName( "layout-key" )->item(0)->nodeValue;
 			foreach($layout->getElementsByTagName( "start-valid-time" ) as $layout_value) {
 				$times[$layout_key][] = array("name"=>$layout_value->getAttribute('period-name'),"date"=>$layout_value->nodeValue);
-				if ($layout_value->getAttribute('period-name') != "current") $this->json["forecast"][$layout_value->getAttribute('period-name')] = array("time"=>$layout_value->nodeValue);
+				if ($layout_value->getAttribute('period-name') != "current") $this->output["forecast"][$layout_value->getAttribute('period-name')] = array("time"=>$layout_value->nodeValue);
 			}
 		}
 		$this->times =  $times;
