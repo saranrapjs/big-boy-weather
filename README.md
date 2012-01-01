@@ -1,15 +1,16 @@
-nws2json
+nws2jwhatever
 ================================
 
-My little PHP class for generating JSON versions of NOAA/NWS forecast data, intended as a lightly formatted proxy for existing NOAA/NWS xml.  
+My little PHP class for generating structured versions of NOAA/NWS forecast data, intended as a lightly formatted proxy for existing NOAA/NWS xml.  
 "no pro" and "never not finishing", licensed under the MIT license.
 
 Example
 -------------------------
-    include("nws2json.php");
+    include("nws2whatever.php");
     //setup with latitude and longitude
-    $weather = new nws2json(40.6498,-73.9488);
+    $weather = new nws2whatever(40.6498,-73.9488);
     echo $weather->json;
+    print_r($weather->output);
 
 Background
 -------------------------
