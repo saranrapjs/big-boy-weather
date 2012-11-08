@@ -6,7 +6,7 @@ require("Mustache.php");
 
 $weather = new bigboyWeather();
 
-$zip = (isset($_REQUEST['body'])) ? $weather::sanitizeZip($_REQUEST['body']) : "11231";
+$zip = (isset($_REQUEST['Body'])) ? $weather::sanitizeZip($_REQUEST['Body']) : "11231";
 $format = (isset($_REQUEST['format']) && $_REQUEST['format'] == "voice") ? "voice" : "sms";
 $template = file_get_contents( $format.".mustache");
 
