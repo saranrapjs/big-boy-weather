@@ -7,8 +7,8 @@
         </Say>
     </Gather>
     <Say>Sorry man, we need your zip code to predict the weather. Call back and try again!</Say>
-    {{/ask}}
+    {{/asked}}
     {{#asked}}
      <Say>{{#theForecast}}Hey man, let me tell you about the {{day}} weather.  {{words}}{{/theForecast}}</Say>
-    {{/ask}}
+    {{/asked}}
 </Response>
