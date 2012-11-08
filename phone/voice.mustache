@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-	{{#ask}}
+	{{^asked}}
     <Gather action="index.php?format=voice&asked=true" method="GET">
         <Say>
             Please enter your zip code followed by a pound.
@@ -8,7 +8,7 @@
     </Gather>
     <Say>Sorry man, we need your zip code to predict the weather. Call back and try again!</Say>
     {{/ask}}
-    {{^ask}}
+    {{#asked}}
      <Say>{{#theForecast}}Hey man, let me tell you about the {{day}} weather.  {{words}}{{/theForecast}}</Say>
     {{/ask}}
 </Response>

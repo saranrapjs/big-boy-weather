@@ -11,7 +11,7 @@ $format = (isset($_REQUEST['format']) && $_REQUEST['format'] == "voice") ? "voic
 $template = file_get_contents( $format.".mustache");
 
 $weather->geocode( $zip );
-$weather->ask = ($format == "voice" && isset($_REQUEST["asked"])) ? true : false;
+$weather->asked = ($format == "voice" && isset($_REQUEST["asked"])) ? true : false;
 
 $mustache = new Mustache;
 print $mustache->render($template,$weather);
