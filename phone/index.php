@@ -6,8 +6,9 @@ require("Mustache.php");
 
 $weather = new bigboyWeather();
 
-$zip = (isset($_REQUEST['Body'])) ? $weather::sanitizeZip($_REQUEST['Body']) : "11231";
 $format = (isset($_REQUEST['format']) && $_REQUEST['format'] == "voice") ? "voice" : "sms";
+$input = ($format == "voice") ? "Digits" : "Body";
+$zip = (isset($_REQUEST[$input])) ? $weather::sanitizeZip($_REQUEST[$input]) : "11231";
 $template = file_get_contents( $format.".mustache");
 
 $weather->geocode( $zip );
