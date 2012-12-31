@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Copyright (c) 2011 JEFF SISSON
 
@@ -29,6 +29,7 @@ class noaa {
 		return $data;
 	}
 	private function makeDom($string) {
+		$this_dom = new stdClass();
 		$this_dom->xml = new DOMDocument();
 		$this_dom->xml->loadXML($string);
 		$this_dom->xpath = new DomXPath($this_dom->xml);

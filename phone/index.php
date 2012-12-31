@@ -1,4 +1,4 @@
-<?
+<?php
 // TWILIO-BASED INTERFACE FOR READING OUT THE WEATHER VIA SMS AND VOICE
 
 require("../noaaHelper.php");
