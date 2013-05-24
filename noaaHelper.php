@@ -151,7 +151,7 @@ class bigboyWeather extends noaa {
 		$this->lat = $geo_data->results[0]->geometry->location->lat;
 		$this->lon = $geo_data->results[0]->geometry->location->lng;
 	}
-	function sanitizeZip($z) {
+	static function sanitizeZip($z) {
 		$int =  preg_replace('/\D/','',$z);
 		$int = substr($int,0,5);
 		return $int;
